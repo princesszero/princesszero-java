@@ -1,11 +1,11 @@
 package MyHashMap;
 
 public class HashMap01{
-	Node[] table;//Î»Í°Êı×é
-	int size;//´æ·Å¼üÖµ¶ÔµÄ¸öÊı
+	Node[] table;//ä½æ¡¶æ•°ç»„
+	int size;//å­˜æ”¾é”®å€¼å¯¹çš„ä¸ªæ•°
 	
 	public  HashMap01(){
-		table=new Node[16];//³õÊ¼»¯µÄÈİÁ¿ÊÇ16
+		table=new Node[16];//åˆå§‹åŒ–çš„å®¹é‡æ˜¯16
 	}
 	
 	public Object get(Object key)
@@ -33,7 +33,7 @@ public class HashMap01{
 	
 	
 	public  void put(Object key,Object value) {
-		/*¶¨ÒåÒ»¸öĞÂµÄ½Úµã¶ÔÏó*/
+		/*å®šä¹‰ä¸€ä¸ªæ–°çš„èŠ‚ç‚¹å¯¹è±¡*/
 		Node newNode=new Node();
 		newNode.hash=myHash(key.hashCode(),table.length);
 		newNode.keyObject=key;
@@ -41,51 +41,51 @@ public class HashMap01{
 		newNode .nextNode=null;
 		
 		Node tempNode=table[newNode.hash];
-		Node lastNode=null;//ÓÃÀ´¼ÇÂ¼Á´±íµÄ×îºóÒ»¸öÔªËØ
+		Node lastNode=null;//ç”¨æ¥è®°å½•é“¾è¡¨çš„æœ€åä¸€ä¸ªå…ƒç´ 
 		boolean keyRepeat=false;
 		
 		
 		if(tempNode==null)
 		{
-			//´ËÊ±Êı×éÔªËØÎ»ÖÃÎª¿Õ£¬Ö±½Ó½«ĞÂ½áµã·Å½øÈ¥¼´¿É
+			//æ­¤æ—¶æ•°ç»„å…ƒç´ ä½ç½®ä¸ºç©ºï¼Œç›´æ¥å°†æ–°ç»“ç‚¹æ”¾è¿›å»å³å¯
 			table[newNode.hash]=newNode;
 		}else {
-			//Êı×éÔªËØ²»Îª¿Õ£¬Ôò±éÀúÁ´±í
+			//æ•°ç»„å…ƒç´ ä¸ä¸ºç©ºï¼Œåˆ™éå†é“¾è¡¨
 			while(tempNode!=null)
 			{
-				//keyÈç¹ûÖØ¸´Ôò¸²¸Ç
+				//keyå¦‚æœé‡å¤åˆ™è¦†ç›–
 				if(tempNode.keyObject.equals(key))
 				{
-					System.out.println("ÓĞÖØ¸´µÄkeyÖµ³öÏÖ");
+					System.out.println("æœ‰é‡å¤çš„keyå€¼å‡ºç°");
 					
 					tempNode.valueObject=value;
-					//Ö»ĞèÒªÓÃĞÂµÄvalueÖµ¸²¸Ç¾ÉµÄvalueÖµ
+					//åªéœ€è¦ç”¨æ–°çš„valueå€¼è¦†ç›–æ—§çš„valueå€¼
 					keyRepeat=true;
 					
 					break;
 				}else {
-				//²»ÖØ¸´£¬±éÀúÁ´±í£¬¼ÓÈëÁ´±íµÄÎ²²¿
+				//ä¸é‡å¤ï¼Œéå†é“¾è¡¨ï¼ŒåŠ å…¥é“¾è¡¨çš„å°¾éƒ¨
 				lastNode=tempNode;
 				tempNode=tempNode.nextNode;
 				}
 			}
 			if(!keyRepeat)
-				lastNode.nextNode=newNode;//½«ĞÂµÄ½áµã³É¹¦¼ÓÈëÁ´±íµÄÎ²²¿
+				lastNode.nextNode=newNode;//å°†æ–°çš„ç»“ç‚¹æˆåŠŸåŠ å…¥é“¾è¡¨çš„å°¾éƒ¨
 		}
 		
 			
 	}
 	
-	//¼ÆËã¶ÔÓ¦µÄhashÖµ
+	//è®¡ç®—å¯¹åº”çš„hashå€¼
 	public int myHash(int v,int length)
 	{
-		/*hashÖµ¼ÆËãÁ½ÖÖ·½·¨£º
-		 * hash=v&(length-1);ÒªÇó³¤¶È±ØĞëÊÇ2µÄÕûÊı´ÎÃİ£¬Ğ§ÂÊ½Ï¸ß
-		 * hash=v%(length-1);È¡Ä£ÔËËãĞ§ÂÊ½ÏµÍ
-		 * ×÷ÓÃ¶¼ÊÇÉ¢ÁĞ×÷ÓÃ£¬µ«ÊÇÖµ²»Ò»Ñù
+		/*hashå€¼è®¡ç®—ä¸¤ç§æ–¹æ³•ï¼š
+		 * hash=v&(length-1);è¦æ±‚é•¿åº¦å¿…é¡»æ˜¯2çš„æ•´æ•°æ¬¡å¹‚ï¼Œæ•ˆç‡è¾ƒé«˜
+		 * hash=v%(length-1);å–æ¨¡è¿ç®—æ•ˆç‡è¾ƒä½
+		 * ä½œç”¨éƒ½æ˜¯æ•£åˆ—ä½œç”¨ï¼Œä½†æ˜¯å€¼ä¸ä¸€æ ·
 		 */
-		System.out.println("Î»hash"+(v&(length-1)));
-		System.out.println("Ä£hash"+(v%(length-1)));
+		System.out.println("ä½hash"+(v&(length-1)));
+		System.out.println("æ¨¡hash"+(v%(length-1)));
 		return v&(length-1);
 	}
 	public static void main(String[] args) {
@@ -97,5 +97,6 @@ public class HashMap01{
 		hashMap01.put(53, 1);
 		hashMap01.put(85, 2);
 		System.out.println("get"+hashMap01.get(53));
+		
 	}
 }
